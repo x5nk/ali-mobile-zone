@@ -79,20 +79,22 @@ const CATEGORY_ICONS: Record<string, typeof Plug> = {
 function CategoriesGrid() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-12">
-      <div className="mb-6 flex items-end justify-between">
+      <Reveal variant="left" className="mb-6 flex items-end justify-between">
         <div>
           <h2 className="text-3xl font-extrabold text-navy">Shop by Category</h2>
           <p className="mt-1 text-sm text-muted-foreground">Find exactly what you need</p>
         </div>
-      </div>
+      </Reveal>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
-        {CATEGORIES.map((c) => {
+        {CATEGORIES.map((c, idx) => {
           const Icon = CATEGORY_ICONS[c] ?? Package2;
           return (
-            <Link key={c} to="/products" search={{ category: c } as never} className="group flex flex-col items-center gap-2 rounded-2xl border bg-card p-5 text-center shadow-[var(--shadow-card)] transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)]">
-              <div className="grid h-14 w-14 place-items-center rounded-full bg-navy text-gold transition group-hover:bg-gold group-hover:text-navy"><Icon className="h-7 w-7" /></div>
-              <div className="text-xs font-bold text-navy">{c}</div>
-            </Link>
+            <Reveal key={c} variant="pop" delay={idx * 80}>
+              <Link to="/products" search={{ category: c } as never} className="group flex h-full flex-col items-center gap-2 rounded-2xl border bg-card p-5 text-center shadow-[var(--shadow-card)] transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)]">
+                <div className="grid h-14 w-14 place-items-center rounded-full bg-navy text-gold transition group-hover:bg-gold group-hover:text-navy"><Icon className="h-7 w-7" /></div>
+                <div className="text-xs font-bold text-navy">{c}</div>
+              </Link>
+            </Reveal>
           );
         })}
       </div>
