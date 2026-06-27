@@ -43,10 +43,10 @@ function Navbar() {
     <header className="sticky top-0 z-40 border-b border-border bg-white/95 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3">
         <Link to="/" className="flex items-center gap-2">
-          <div className="grid h-9 w-9 place-items-center rounded-lg bg-navy text-gold">
+          <div className="grid h-9 w-9 place-items-center rounded-lg bg-navy text-gold animate-logo-bounce">
             <Smartphone className="h-5 w-5" />
           </div>
-          <div className="hidden sm:block">
+          <div className="hidden sm:block animate-slide-in-left">
             <div className="text-base font-extrabold leading-none text-navy">Ali Mobile Zone</div>
             <div className="text-[10px] font-medium text-muted-foreground">Mobile Accessories</div>
           </div>
