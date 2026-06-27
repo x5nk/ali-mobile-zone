@@ -141,12 +141,14 @@ function ProductRow({ title, ids }: { title: string; ids: Set<string> }) {
   if (!list.length) return null;
   return (
     <section className="mx-auto max-w-7xl px-4 py-12">
-      <div className="mb-6 flex items-end justify-between">
+      <Reveal variant="left" className="mb-6 flex items-end justify-between">
         <h2 className="text-3xl font-extrabold text-navy">{title}</h2>
         <Link to="/products" className="text-sm font-bold text-navy hover:text-gold">View all →</Link>
-      </div>
+      </Reveal>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
-        {list.map((p) => <ProductCard key={p.id} product={p} />)}
+        {list.map((p, i) => (
+          <Reveal key={p.id} delay={i * 90}><ProductCard product={p} /></Reveal>
+        ))}
       </div>
     </section>
   );
