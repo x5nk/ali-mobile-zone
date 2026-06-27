@@ -102,3 +102,114 @@
 @utility animate-fade-up {
   animation: fade-up 0.5s ease-out both;
 }
+
+/* ============ Added visual animations ============ */
+
+@keyframes float-cover {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+@utility animate-float-cover { animation: float-cover 3s ease-in-out infinite; }
+
+@keyframes float-charger {
+  0%, 100% { transform: translateY(-20px) rotate(4deg); }
+  50% { transform: translateY(0) rotate(-4deg); }
+}
+@utility animate-float-charger { animation: float-charger 3.5s ease-in-out infinite; }
+
+@keyframes charger-glow {
+  0%, 100% { filter: drop-shadow(0 0 4px color-mix(in oklab, var(--gold) 40%, transparent)); }
+  50% { filter: drop-shadow(0 0 18px color-mix(in oklab, var(--gold) 80%, transparent)); }
+}
+@utility animate-charger-glow { animation: charger-glow 2.4s ease-in-out infinite; }
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+@utility animate-spin-slow { animation: spin-slow 8s linear infinite; }
+
+@keyframes bubble-up {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  10% { opacity: var(--bubble-op, 0.25); }
+  90% { opacity: var(--bubble-op, 0.25); }
+  100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+}
+@utility animate-bubble-up { animation: bubble-up var(--bubble-dur, 10s) linear infinite; }
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+@utility animate-heartbeat { animation: heartbeat 1.5s ease-in-out infinite; }
+
+@keyframes bubble-pop {
+  0% { opacity: 0; transform: translate(-50%, 6px) scale(0.6); }
+  30% { opacity: 1; transform: translate(-50%, -4px) scale(1.05); }
+  60% { transform: translate(-50%, 0) scale(1); }
+  85% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -2px) scale(0.9); }
+}
+@utility animate-bubble-pop { animation: bubble-pop 2.5s ease-out both; }
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@utility animate-slide-in-left { animation: slide-in-left 0.6s ease-out both; }
+
+@keyframes logo-bounce {
+  0% { transform: translateY(0) scale(1); }
+  30% { transform: translateY(-10px) scale(1.1); }
+  55% { transform: translateY(0) scale(0.95); }
+  75% { transform: translateY(-4px) scale(1.02); }
+  100% { transform: translateY(0) scale(1); }
+}
+@utility animate-logo-bounce { animation: logo-bounce 0.8s ease-out both; }
+
+@keyframes sonar {
+  0% { transform: scale(0.6); opacity: 0.7; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+@utility animate-sonar { animation: sonar 2s ease-out infinite; }
+
+@keyframes cover-snap {
+  0% { transform: translateY(-120%) rotate(-6deg); opacity: 0; }
+  55% { transform: translateY(6%) rotate(2deg); opacity: 1; }
+  70% { transform: translateY(-3%) rotate(-1deg); }
+  85%, 100% { transform: translateY(0) rotate(0); opacity: 1; }
+}
+@utility animate-cover-snap { animation: cover-snap 3s ease-in-out infinite; }
+
+@keyframes spark-burst {
+  0% { transform: scale(0.4); opacity: 0.9; }
+  100% { transform: scale(2); opacity: 0; }
+}
+@utility animate-spark-burst { animation: spark-burst 1.6s ease-out infinite; }
+
+@keyframes bolt-pulse {
+  0%, 100% { opacity: 0.65; filter: drop-shadow(0 0 2px var(--gold)); }
+  50% { opacity: 1; filter: drop-shadow(0 0 14px var(--gold)); }
+}
+@utility animate-bolt-pulse { animation: bolt-pulse 1.4s ease-in-out infinite; }
+
+@keyframes draw-line { to { stroke-dashoffset: 0; } }
+@utility animate-draw-line { animation: draw-line 2.2s ease-in-out infinite alternate; }
+
+/* Scroll reveal */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+.reveal-left { opacity: 0; transform: translateX(-30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.reveal-left.is-visible { opacity: 1; transform: translateX(0); }
+.reveal-pop { opacity: 0; transform: scale(0.4); transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+.reveal-pop.is-visible { opacity: 1; transform: scale(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal, .reveal-left, .reveal-pop { opacity: 1 !important; transform: none !important; }
+}

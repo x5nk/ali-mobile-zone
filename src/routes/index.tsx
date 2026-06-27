@@ -5,6 +5,9 @@ import { ProductCard } from "@/components/ProductCard";
 import { useProducts, formatPrice } from "@/lib/store";
 import { BEST_SELLER_IDS, NEW_IDS, CATEGORIES } from "@/lib/products";
 import { waGeneral } from "@/lib/whatsapp";
+import { HeroFx } from "@/components/HeroFx";
+import { ShowcaseStrip } from "@/components/ShowcaseStrip";
+import { Reveal } from "@/components/Reveal";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -32,6 +35,7 @@ function Hero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-navy via-navy to-navy-light text-white">
       <div className="absolute inset-0 opacity-20" style={{ background: "radial-gradient(circle at 20% 20%, var(--gold) 0%, transparent 40%), radial-gradient(circle at 80% 80%, var(--gold) 0%, transparent 40%)" }} />
+      <HeroFx />
       <div className="relative mx-auto grid max-w-7xl items-center gap-8 px-4 py-16 md:grid-cols-2 md:py-24">
         <div key={i} className="animate-fade-up">
           <div className="mb-3 inline-block rounded-full bg-gold/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-gold">{s.accent}</div>
@@ -75,20 +79,22 @@ const CATEGORY_ICONS: Record<string, typeof Plug> = {
 function CategoriesGrid() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-12">
-      <div className="mb-6 flex items-end justify-between">
+      <Reveal variant="left" className="mb-6 flex items-end justify-between">
         <div>
           <h2 className="text-3xl font-extrabold text-navy">Shop by Category</h2>
           <p className="mt-1 text-sm text-muted-foreground">Find exactly what you need</p>
         </div>
-      </div>
+      </Reveal>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
-        {CATEGORIES.map((c) => {
+        {CATEGORIES.map((c, idx) => {
           const Icon = CATEGORY_ICONS[c] ?? Package2;
           return (
-            <Link key={c} to="/products" search={{ category: c } as never} className="group flex flex-col items-center gap-2 rounded-2xl border bg-card p-5 text-center shadow-[var(--shadow-card)] transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)]">
-              <div className="grid h-14 w-14 place-items-center rounded-full bg-navy text-gold transition group-hover:bg-gold group-hover:text-navy"><Icon className="h-7 w-7" /></div>
-              <div className="text-xs font-bold text-navy">{c}</div>
-            </Link>
+            <Reveal key={c} variant="pop" delay={idx * 80}>
+              <Link to="/products" search={{ category: c } as never} className="group flex h-full flex-col items-center gap-2 rounded-2xl border bg-card p-5 text-center shadow-[var(--shadow-card)] transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)]">
+                <div className="grid h-14 w-14 place-items-center rounded-full bg-navy text-gold transition group-hover:bg-gold group-hover:text-navy"><Icon className="h-7 w-7" /></div>
+                <div className="text-xs font-bold text-navy">{c}</div>
+              </Link>
+            </Reveal>
           );
         })}
       </div>
@@ -135,12 +141,14 @@ function ProductRow({ title, ids }: { title: string; ids: Set<string> }) {
   if (!list.length) return null;
   return (
     <section className="mx-auto max-w-7xl px-4 py-12">
-      <div className="mb-6 flex items-end justify-between">
+      <Reveal variant="left" className="mb-6 flex items-end justify-between">
         <h2 className="text-3xl font-extrabold text-navy">{title}</h2>
         <Link to="/products" className="text-sm font-bold text-navy hover:text-gold">View all →</Link>
-      </div>
+      </Reveal>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
-        {list.map((p) => <ProductCard key={p.id} product={p} />)}
+        {list.map((p, i) => (
+          <Reveal key={p.id} delay={i * 90}><ProductCard product={p} /></Reveal>
+        ))}
       </div>
     </section>
   );
@@ -236,6 +244,7 @@ function HomePage() {
       <CategoriesGrid />
       <FlashSale />
       <ProductRow title="Best Sellers" ids={BEST_SELLER_IDS} />
+      <ShowcaseStrip />
       <ProductRow title="New Arrivals" ids={NEW_IDS} />
       <WhatsAppBanner />
       <Reviews />
