@@ -54,7 +54,7 @@ function ProductsPage() {
   const paged = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   const update = (partial: Record<string, unknown>) =>
-    navigate({ search: (prev) => ({ ...prev, ...partial, page: 1 }) as never });
+    navigate({ search: (prev: Record<string, unknown>) => ({ ...prev, ...partial, page: 1 }) as never });
 
   const FilterContent = (
     <div className="space-y-6">
@@ -119,7 +119,7 @@ function ProductsPage() {
           {totalPages > 1 && (
             <div className="mt-8 flex justify-center gap-2">
               {Array.from({ length: totalPages }).map((_, i) => (
-                <button key={i} onClick={() => navigate({ search: (prev) => ({ ...prev, page: i + 1 }) as never })} className={`h-9 w-9 rounded-lg text-sm font-bold ${page === i + 1 ? "bg-navy text-white" : "border bg-white text-navy hover:bg-secondary"}`}>{i + 1}</button>
+                <button key={i} onClick={() => navigate({ search: (prev: Record<string, unknown>) => ({ ...prev, page: i + 1 }) as never })} className={`h-9 w-9 rounded-lg text-sm font-bold ${page === i + 1 ? "bg-navy text-white" : "border bg-white text-navy hover:bg-secondary"}`}>{i + 1}</button>
               ))}
             </div>
           )}
