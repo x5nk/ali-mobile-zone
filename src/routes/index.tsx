@@ -35,6 +35,7 @@ function Hero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-navy via-navy to-navy-light text-white">
       <div className="absolute inset-0 opacity-20" style={{ background: "radial-gradient(circle at 20% 20%, var(--gold) 0%, transparent 40%), radial-gradient(circle at 80% 80%, var(--gold) 0%, transparent 40%)" }} />
+      <HeroFx />
       <div className="relative mx-auto grid max-w-7xl items-center gap-8 px-4 py-16 md:grid-cols-2 md:py-24">
         <div key={i} className="animate-fade-up">
           <div className="mb-3 inline-block rounded-full bg-gold/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-gold">{s.accent}</div>
