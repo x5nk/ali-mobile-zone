@@ -161,7 +161,7 @@ function Footer() {
 
 function FloatingWhatsApp() {
   const [showBubble, setShowBubble] = useState(false);
-  React.useEffect(() => {
+  useEffect(() => {
     const tick = () => {
       setShowBubble(true);
       window.setTimeout(() => setShowBubble(false), 2200);
