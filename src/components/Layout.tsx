@@ -1,5 +1,5 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { useState, type ReactNode, useMemo } from "react";
+import { useState, useEffect, type ReactNode, useMemo } from "react";
 import { Search, ShoppingCart, Heart, User, Menu, X, Smartphone, Instagram, Youtube, MessageCircle } from "lucide-react";
 import { useCart, useProducts } from "@/lib/store";
 import { waGeneral, WA_DISPLAY } from "@/lib/whatsapp";
