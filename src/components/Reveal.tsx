@@ -39,6 +39,5 @@ export function Reveal({
 
   const base = variant === "left" ? "reveal-left" : variant === "pop" ? "reveal-pop" : "reveal";
   const style: CSSProperties = { transitionDelay: visible ? `${delay}ms` : "0ms" };
-  // @ts-expect-error - polymorphic ref
-  return <As ref={ref} style={style} className={`${base} ${visible ? "is-visible" : ""} ${className}`}>{children}</As>;
+  return <As ref={ref as never} style={style} className={`${base} ${visible ? "is-visible" : ""} ${className}`}>{children}</As>;
 }
