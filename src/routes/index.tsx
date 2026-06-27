@@ -244,6 +244,7 @@ function HomePage() {
       <CategoriesGrid />
       <FlashSale />
       <ProductRow title="Best Sellers" ids={BEST_SELLER_IDS} />
+      <ShowcaseStrip />
       <ProductRow title="New Arrivals" ids={NEW_IDS} />
       <WhatsAppBanner />
       <Reviews />
