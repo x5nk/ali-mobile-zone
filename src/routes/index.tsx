@@ -5,6 +5,9 @@ import { ProductCard } from "@/components/ProductCard";
 import { useProducts, formatPrice } from "@/lib/store";
 import { BEST_SELLER_IDS, NEW_IDS, CATEGORIES } from "@/lib/products";
 import { waGeneral } from "@/lib/whatsapp";
+import { HeroFx } from "@/components/HeroFx";
+import { ShowcaseStrip } from "@/components/ShowcaseStrip";
+import { Reveal } from "@/components/Reveal";
 
 export const Route = createFileRoute("/")({
   head: () => ({
