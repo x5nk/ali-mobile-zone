@@ -124,4 +124,35 @@ export function useAdminAuth() {
   return { authed, login: (pw: string) => (pw === ADMIN_PASSWORD ? (setAuthed(true), true) : false), logout: () => setAuthed(false) };
 }
 
+export type User = { email: string; createdAt: string };
+export type SignupResult = { success: true } | { success: false; message: string };
+
+export function useUserAuth() {
+  const [user, setUser] = useStored<User | null>("amz:user", null);
+  const [users, setUsers] = useStored<Array<User & { password: string }>>("amz:user-list", []);
+
+  const login = (email: string, password: string) => {
+    const match = users.find((u) => u.email.toLowerCase() === email.toLowerCase());
+    if (!match || match.password !== password) return false;
+    setUser({ email: match.email, createdAt: match.createdAt });
+    return true;
+  };
+
+  const signup = (email: string, password: string): SignupResult => {
+    const normalized = email.trim().toLowerCase();
+    if (!normalized) return { success: false, message: "Enter a valid email." };
+    if (users.some((u) => u.email.toLowerCase() === normalized)) {
+      return { success: false, message: "An account with that email already exists." };
+    }
+    const newUser = { email: normalized, password, createdAt: new Date().toISOString() };
+    setUsers((prev) => [...prev, newUser]);
+    setUser({ email: normalized, createdAt: newUser.createdAt });
+    return { success: true };
+  };
+
+  const logout = () => setUser(null);
+
+  return { user, login, signup, logout };
+}
+
 export const formatPrice = (n: number) => `Rs.${n.toLocaleString("en-PK")}`;

@@ -2,6 +2,7 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useState, useEffect, type ReactNode, useMemo } from "react";
 import { Search, ShoppingCart, Heart, User, Menu, X, Smartphone, Instagram, Youtube, MessageCircle } from "lucide-react";
 import { useCart, useProducts } from "@/lib/store";
+import { useAuth } from "@/hooks/use-auth";
 import { waGeneral, WA_DISPLAY } from "@/lib/whatsapp";
 import { ProductImage } from "./ProductImage";
 import { formatPrice } from "@/lib/store";
@@ -24,6 +25,7 @@ function AnnouncementBar() {
 function Navbar() {
   const { count } = useCart();
   const { products } = useProducts();
+  const { user } = useAuth();
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -90,9 +92,14 @@ function Navbar() {
               <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-gold px-1 text-[10px] font-bold text-navy">{count}</span>
             )}
           </Link>
-          <button className="grid h-10 w-10 place-items-center rounded-lg text-navy hover:bg-secondary" aria-label="Account">
-            <User className="h-5 w-5" />
-          </button>
+          {user ? (
+            <Link to="/profile" className="hidden rounded-lg border border-border px-3 py-2 text-sm font-medium text-navy hover:bg-secondary md:inline-flex">My account</Link>
+          ) : (
+            <>
+              <Link to="/login" className="hidden rounded-lg border border-border px-3 py-2 text-sm font-medium text-navy hover:bg-secondary md:inline-flex">Login</Link>
+              <Link to="/signup" className="hidden rounded-lg bg-gold px-3 py-2 text-sm font-medium text-navy transition hover:bg-gold/90 md:inline-flex">Sign up</Link>
+            </>
+          )}
           <button onClick={() => setOpen((o) => !o)} className="grid h-10 w-10 place-items-center rounded-lg text-navy hover:bg-secondary md:hidden" aria-label="Menu">
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -108,6 +115,14 @@ function Navbar() {
           <div className="flex flex-col gap-1">
             <Link to="/products" onClick={() => setOpen(false)} className="rounded-lg px-3 py-2 text-sm font-medium text-navy hover:bg-secondary">Shop</Link>
             <Link to="/contact" onClick={() => setOpen(false)} className="rounded-lg px-3 py-2 text-sm font-medium text-navy hover:bg-secondary">Contact</Link>
+            {user ? (
+              <Link to="/profile" onClick={() => setOpen(false)} className="rounded-lg px-3 py-2 text-sm font-medium text-navy hover:bg-secondary">My account</Link>
+            ) : (
+              <>
+                <Link to="/login" onClick={() => setOpen(false)} className="rounded-lg px-3 py-2 text-sm font-medium text-navy hover:bg-secondary">Login</Link>
+                <Link to="/signup" onClick={() => setOpen(false)} className="rounded-lg px-3 py-2 text-sm font-medium text-navy hover:bg-secondary">Sign up</Link>
+              </>
+            )}
             <Link to="/admin" onClick={() => setOpen(false)} className="rounded-lg px-3 py-2 text-sm font-medium text-navy hover:bg-secondary">Admin</Link>
           </div>
         </div>
